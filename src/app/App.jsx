@@ -1,9 +1,10 @@
 import './App.css'
+import SignIn from "../pages/sign-in/index.jsx";
 
 function App() {
     return (
         <>
-            <h1>Orange</h1>
+            <SignIn/>
         </>
     )
 }
