@@ -1,21 +1,17 @@
 import React from 'react';
 import {
-    Box,
-    Button,
-    CardMedia,
-    FormControl,
-    Grid, IconButton, InputAdornment,
-    InputLabel,
-    OutlinedInput,
+    Box, Button,
+    CardMedia, Checkbox, FormControl, FormControlLabel,
+    Grid, IconButton, InputAdornment, InputLabel, OutlinedInput,
     TextField, Typography
 } from "@mui/material";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import background from '../../assets/image/orange-background.jpeg';
-import logo from '../../assets/icon/orange-logo.png';
+import background from "../../assets/image/orange-background.jpeg";
+import logo from "../../assets/icon/orange-logo.png";
+import VisibilityOff from "@mui/icons-material/VisibilityOff.js";
+import Visibility from "@mui/icons-material/Visibility.js";
 import {Link} from "react-router-dom";
 
-function SignIn() {
+function SignUp() {
 
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -39,7 +35,7 @@ function SignIn() {
                               flexDirection: "column",
                               alignItems: "flex-end",
                               flexWrap: "nowrap"
-                    }}>
+                          }}>
                         <Grid item
                               style={{
                                   width: "100%",
@@ -49,9 +45,9 @@ function SignIn() {
                                   display: 'flex',
                                   alignItems: 'flex-end',
                                   justifyContent: 'center',
-                                  marginTop: "100px",
-                                  paddingBottom: '190px'
-                        }}>
+                                  marginTop: "60px",
+                                  paddingBottom: '60px'
+                              }}>
                             <CardMedia component="img" image={logo} alt="logo"
                                        style={{ width: 60 }}
                             />
@@ -62,8 +58,8 @@ function SignIn() {
                                   paddingLeft: "40px",
                                   paddingRight: "40px",
                                   paddingBottom: "20px"
-                        }}>
-                            <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth
+                              }}>
+                            <TextField id="outlined-basic" label="First Name" variant="outlined" fullWidth
                                        InputLabelProps={{ style: { color: '#ff8f04' }}}
                                        inputProps={{ style: { color: '#ff8f04' }}}
                             />
@@ -73,8 +69,33 @@ function SignIn() {
                                   width: "100%",
                                   paddingLeft: "40px",
                                   paddingRight: "40px",
+                                  paddingBottom: "20px"
+                              }}>
+                            <TextField id="outlined-basic" label="Last Name" variant="outlined" fullWidth
+                                       InputLabelProps={{ style: { color: '#ff8f04' }}}
+                                       inputProps={{ style: { color: '#ff8f04' }}}
+                            />
+                        </Grid>
+                        <Grid item
+                              style={{
+                                  width: "100%",
+                                  paddingLeft: "40px",
+                                  paddingRight: "40px",
+                                  paddingBottom: "20px"
+                              }}>
+                            <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth
+                                       InputLabelProps={{ style: { color: '#ff8f04' }}}
+                                       inputProps={{ style: { color: '#ff8f04' }}}
+                            />
+                        </Grid>
+
+                        <Grid item
+                              style={{
+                                  width: "100%",
+                                  paddingLeft: "40px",
+                                  paddingRight: "40px",
                                   paddingBottom: "10px",
-                        }}>
+                              }}>
                             <FormControl variant="outlined" fullWidth>
                                 <InputLabel htmlFor="outlined-adornment-password"
                                             style={{ color: "#ff8f04" }}
@@ -102,26 +123,22 @@ function SignIn() {
                         </Grid>
                         <Grid item
                               style={{
+                                  width: "100%",
                                   paddingLeft: "40px",
                                   paddingRight: "40px",
-                                  paddingBottom: "20px"
-                        }}>
-                            <Typography
-                                style={{
-                                    color: '#898401',
-                                    fontSize: '14px',
-                                    paddingBottom: '30px',
-                                    height: 'auto',
-                                    cursor: 'pointer'
-                                }}
-                            >Forgot Password?</Typography>
+                                  paddingBottom: "40px"
+                              }}>
+                            <FormControlLabel
+                                control={<Checkbox style ={{color: "#ff8f04"}} defaultChecked />}
+                                style ={{color: "#605900"}}
+                                label={<Typography style={{fontSize: "14px"}}>I agree to the terms & condition</Typography>} />
                         </Grid>
                         <Grid item
                               style={{
                                   width: "100%",
                                   paddingLeft: "40px",
                                   paddingRight: "40px"
-                        }}>
+                              }}>
                             <Button variant="contained" size="large" fullWidth
                                     style={{
                                         borderRadius: "10px",
@@ -129,14 +146,14 @@ function SignIn() {
                                         padding: "14px",
                                         fontSize: "14px",
                                     }}
-                            >SignIn</Button>
+                            >SignUp</Button>
                         </Grid>
                         <Grid item
                               style={{
                                   width: "100%",
                                   paddingLeft: "40px",
                                   paddingRight: "40px",
-                                  paddingTop: "60px",
+                                  paddingTop: "30px",
                                   display: 'flex',
                                   alignItems: 'flex-end',
                                   justifyContent: 'center',
@@ -149,15 +166,15 @@ function SignIn() {
                                     height: 'auto',
                                     display: 'flex'
                                 }}
-                            >Not account yet?
-                                <Link to="/signup"
+                            >Already have an account?
+                                <Link to="/signin"
                                       style={{
                                           color: '#8f8f02',
                                           fontSize: '14px',
                                           paddingLeft: '6px',
                                           cursor: 'pointer'
                                 }}
-                                >Sign Up</Link>
+                                >Sign In</Link>
                             </Typography>
                         </Grid>
                     </Grid>
@@ -167,4 +184,4 @@ function SignIn() {
     );
 }
 
-export default SignIn;
+export default SignUp;
