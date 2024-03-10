@@ -6,8 +6,6 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -20,9 +18,12 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import ViewAgendaIcon from '@mui/icons-material/ViewAgenda';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import SearchIcon from '@mui/icons-material/Search';
 import {useState} from "react";
-import {Grid} from "@mui/material";
+import {Avatar, Badge, CardMedia, Grid, InputBase, Paper} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import logo from "../../assets/icon/orange-logo.png";
+import profile from "../../assets/image/profile.jpg";
 
 const drawerWidth = 240;
 
@@ -110,39 +111,117 @@ function Item() {
         setClick(props);
     };
 
+    const StyledBadge = styled(Badge)(({ theme }) => ({
+        '& .MuiBadge-badge': {
+            backgroundColor: '#44b700',
+            color: '#44b700',
+            boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+            '&::after': {
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                borderRadius: '50%',
+                animation: 'ripple 1.2s infinite ease-in-out',
+                border: '1px solid currentColor',
+                content: '""',
+            },
+        },
+        '@keyframes ripple': {
+            '0%': {
+                transform: 'scale(.8)',
+                opacity: 1,
+            },
+            '100%': {
+                transform: 'scale(2.4)',
+                opacity: 0,
+            },
+        },
+    }));
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} elevation={0} style={{backgroundColor: '#f4f4f4', zIndex: 1}}>
                 <Toolbar
                     style={{
-                        backgroundColor: "#ff8f04"
+                        backgroundColor: "#ffffff",
+                        borderRadius: '10px',
+                        marginTop: '10px',
+                        marginRight: '10px',
+                        marginLeft: open === false ? '80px' : '10px'
                     }}
                 >
                     <IconButton
-                        color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
                         sx={{
+                            color: '#ff8f04',
                             marginRight: 5,
                             ...(open && { display: 'none' }),
                         }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Orange
-                    </Typography>
+                    <Grid container
+                          style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              flexWrap: 'wrap-reverse',
+                              flexDirection: 'row-reverse',
+                              alignItems: 'center'
+                          }}
+                    >
+                        <Grid item>
+                            <StyledBadge
+                                overlap="circular"
+                                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                                variant="dot"
+                            >
+                                <Avatar alt="Jeewaa" src={profile} />
+                            </StyledBadge>
+                        </Grid>
+                        <Grid item>
+                            <Paper
+                                elevation={0}
+                                component="form"
+                                sx={{
+                                    p: '2px 4px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    width: 300,
+                                    borderRadius: 2,
+                                    border: '1px solid #f4f4f4',
+                                    marginLeft: '-14px',
+                                    height: '46px'
+                                }}
+                            >
+                                <InputBase
+                                    sx={{ ml: 1, flex: 1 }}
+                                    placeholder="Search"
+                                    inputProps={{ 'aria-label': 'search google maps' }}
+                                />
+                                <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                                    <SearchIcon />
+                                </IconButton>
+                            </Paper>
+                        </Grid>
+                    </Grid>
                 </Toolbar>
             </AppBar>
-            <Drawer variant="permanent" open={open}>
+            <Drawer variant="permanent" open={open} style={{zIndex: 2}}>
                 <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        {open === false ? '' : theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon style={{color: '#ff8f04'}}/>}
                     </IconButton>
                 </DrawerHeader>
-                <Divider />
+                <Grid container style={{display: "flex", justifyContent: "center", marginBottom: '20px'}}>
+                    <Grid item>
+                        <CardMedia component="img" height="30px" image={logo} alt="logo" style={{width: '30px'}}/>
+                    </Grid>
+                </Grid>
                 <List>
                     {['Dashboard', 'Customer', 'Product', 'Order'].map((text, index) => (
                         <ListItem key={index} disablePadding
@@ -182,7 +261,7 @@ function Item() {
                     ))}
                 </List>
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{height: '100vh'}}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{height: '100vh', backgroundColor: '#f4f4f4'}}>
                 <DrawerHeader />
                 <Grid container>
                     {

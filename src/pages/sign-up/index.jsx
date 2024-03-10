@@ -140,6 +140,8 @@ function SignUp() {
                                   paddingRight: "40px"
                               }}>
                             <Button variant="contained" size="large" fullWidth
+                                    component={Link}
+                                    to="/dashboard"
                                     style={{
                                         borderRadius: "10px",
                                         backgroundColor: "#ff8f04",
