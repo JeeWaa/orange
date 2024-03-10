@@ -91,10 +91,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-function Dashboard() {
+function Customer() {
     const theme = useTheme();
     const [open, setOpen] = React.useState(true);
-    const [getClick, setClick] = useState(0);
+    const [getClick, setClick] = useState(1);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -154,7 +154,7 @@ function Dashboard() {
                                       margin: '6px',
                                       borderRadius: '6px',
                                       width: '226px',
-                        }}>
+                                  }}>
                             <ListItemButton
                                 sx={{
                                     minHeight: 48,
@@ -186,8 +186,8 @@ function Dashboard() {
                 <DrawerHeader />
                 <Grid container>
                     {
-                        getClick === 0 ? <h1>Dashboard</h1> :
-                            getClick === 1 ? navigate('/customer') :
+                        getClick === 0 ? navigate('/dashboard') :
+                            getClick === 1 ? <h1>Customer</h1> :
                                 getClick === 2 ? navigate('/item') : navigate('/order')
                     }
                 </Grid>
@@ -195,4 +195,4 @@ function Dashboard() {
         </Box>
     );
 }
-export default Dashboard;
+export default Customer;
