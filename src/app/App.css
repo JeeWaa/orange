@@ -2,3 +2,7 @@
     border-radius: 10px !important;
     border-color: #ff8f04 !important;
 }
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+    border-right: 0 !important;
+}
