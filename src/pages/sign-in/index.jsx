@@ -16,6 +16,7 @@ import logo from '../../assets/icon/orange-logo.png';
 import {Link} from "react-router-dom";
 import axios from "axios";
 
+
 function GrowTransition(props) {
     return <Grow {...props} />;
 }
@@ -72,6 +73,8 @@ function SignIn() {
                     open: true,
                     Transition,
                 });
+                window.localStorage.setItem('sign-in-token', res.data.token);
+                window.location.reload();
                 console.log(res);
             })
             .catch(err => {

@@ -74,6 +74,8 @@ function SignUp() {
                     open: true,
                     Transition,
                 });
+                window.localStorage.setItem('sign-in-token', res.data.token);
+                window.location.reload();
                 console.log(res);
             })
             .catch(err => {
