@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Box, Button,
     CardMedia, Checkbox, FormControl, FormControlLabel,
@@ -10,6 +10,7 @@ import logo from "../../assets/icon/orange-logo.png";
 import VisibilityOff from "@mui/icons-material/VisibilityOff.js";
 import Visibility from "@mui/icons-material/Visibility.js";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 function SignUp() {
 
@@ -18,6 +19,35 @@ function SignUp() {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
+
+    const [getFirstName, setFirstName] = useState('');
+    const [getLastName, setLastName] = useState('');
+    const [getEmail, setEmail] = useState('');
+    const [getPassword, setPassword] = useState('');
+
+    useEffect(() => {
+        console.log(getFirstName);
+        console.log(getLastName);
+        console.log(getEmail);
+        console.log(getPassword);
+    });
+
+    const signUpAction = () => {
+        axios.post('https://test.acpt.lk/api/register',
+            {
+                name: getLastName + ' ' + getLastName,
+                email: getEmail,
+                password: getPassword,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json;'
+                }
+            })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => console.log(err.message));
+    }
 
     return (
         <>
@@ -62,6 +92,8 @@ function SignUp() {
                             <TextField id="outlined-basic" label="First Name" variant="outlined" fullWidth
                                        InputLabelProps={{ style: { color: '#ff8f04' }}}
                                        inputProps={{ style: { color: '#ff8f04' }}}
+                                       onChange={(val) => {setFirstName(val.target.value)}}
+                                       value={getFirstName}
                             />
                         </Grid>
                         <Grid item
@@ -74,6 +106,8 @@ function SignUp() {
                             <TextField id="outlined-basic" label="Last Name" variant="outlined" fullWidth
                                        InputLabelProps={{ style: { color: '#ff8f04' }}}
                                        inputProps={{ style: { color: '#ff8f04' }}}
+                                       onChange={(val) => {setLastName(val.target.value)}}
+                                       value={getLastName}
                             />
                         </Grid>
                         <Grid item
@@ -86,6 +120,8 @@ function SignUp() {
                             <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth
                                        InputLabelProps={{ style: { color: '#ff8f04' }}}
                                        inputProps={{ style: { color: '#ff8f04' }}}
+                                       onChange={(val) => {setEmail(val.target.value)}}
+                                       value={getEmail}
                             />
                         </Grid>
 
@@ -96,7 +132,10 @@ function SignUp() {
                                   paddingRight: "40px",
                                   paddingBottom: "10px",
                               }}>
-                            <FormControl variant="outlined" fullWidth>
+                            <FormControl variant="outlined" fullWidth
+                                         onChange={(val) => {setPassword(val.target.value)}}
+                                         value={getPassword}
+                            >
                                 <InputLabel htmlFor="outlined-adornment-password"
                                             style={{ color: "#ff8f04" }}
                                 >Password</InputLabel>
@@ -140,8 +179,9 @@ function SignUp() {
                                   paddingRight: "40px"
                               }}>
                             <Button variant="contained" size="large" fullWidth
-                                    component={Link}
-                                    to="/dashboard"
+                                    onClick={signUpAction}
+                                    // component={Link}
+                                    // to="/signin"
                                     style={{
                                         borderRadius: "10px",
                                         backgroundColor: "#ff8f04",

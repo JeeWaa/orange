@@ -30,7 +30,7 @@ function SignIn() {
     useEffect(() => {
         console.log(getEmail);
         console.log(getPassword);
-    }, [getEmail, getPassword]);
+    });
 
     const signInAction = () => {
         axios.post('https://test.acpt.lk/api/login',
@@ -44,11 +44,8 @@ function SignIn() {
             })
             .then(res => {
                 console.log(res);
-                console.log(res.status);
-                setSuccess(true);
-                console.log('end');
             })
-            .catch(err => console.log(err.message));
+            .catch(err => console.log(err));
     }
 
     return (
@@ -156,8 +153,8 @@ function SignIn() {
                                   paddingRight: "40px"
                         }}>
                             <Button variant="contained" size="large" fullWidth
-                                    component={Link}
-                                    to="/dashboard"
+                                    // component={Link}
+                                    // to="/dashboard"
                                     style={{
                                         borderRadius: "10px",
                                         backgroundColor: "#ff8f04",
