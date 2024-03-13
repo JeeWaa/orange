@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {
     Box, Button,
-    CardMedia, Checkbox, FormControl, FormControlLabel,
-    Grid, IconButton, InputAdornment, InputLabel, OutlinedInput,
+    CardMedia, Checkbox, Fade, FormControl, FormControlLabel,
+    Grid, Grow, IconButton, InputAdornment, InputLabel, OutlinedInput, Snackbar,
     TextField, Typography
 } from "@mui/material";
 import background from "../../assets/image/orange-background.jpeg";
@@ -11,6 +11,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff.js";
 import Visibility from "@mui/icons-material/Visibility.js";
 import {Link} from "react-router-dom";
 import axios from "axios";
+
+function GrowTransition(props) {
+    return <Grow {...props} />;
+}
 
 function SignUp() {
 
@@ -32,7 +36,29 @@ function SignUp() {
         console.log(getPassword);
     });
 
+    const [getSuccessState, setSuccessState] = React.useState({
+        open: false,
+        Transition: Fade,
+    });
+    const [getErrorState, setErrorState] = React.useState({
+        open: false,
+        Transition: Fade,
+    });
+    const handleClose = () => {
+        setSuccessState({
+            ...getSuccessState,
+            open: false,
+        });
+        setErrorState({
+            ...getErrorState,
+            open: false,
+        });
+    };
+
     const signUpAction = () => {
+
+        const Transition = GrowTransition;
+
         axios.post('https://test.acpt.lk/api/register',
             {
                 name: getLastName + ' ' + getLastName,
@@ -44,9 +70,19 @@ function SignUp() {
                 }
             })
             .then(res => {
+                setSuccessState({
+                    open: true,
+                    Transition,
+                });
                 console.log(res);
             })
-            .catch(err => console.log(err.message));
+            .catch(err => {
+                setErrorState({
+                    open: true,
+                    Transition,
+                });
+                console.log(err.message)
+            });
     }
 
     return (
@@ -189,6 +225,22 @@ function SignUp() {
                                         fontSize: "14px",
                                     }}
                             >SignUp</Button>
+                            <Snackbar
+                                open={getSuccessState.open}
+                                onClose={handleClose}
+                                TransitionComponent={getSuccessState.Transition}
+                                message="You are successfully Sign Up"
+                                key={getSuccessState.Transition.name}
+                                autoHideDuration={1200}
+                            />
+                            <Snackbar
+                                open={getErrorState.open}
+                                onClose={handleClose}
+                                TransitionComponent={getErrorState.Transition}
+                                message="Error"
+                                key={getErrorState.Transition.name}
+                                autoHideDuration={1200}
+                            />
                         </Grid>
                         <Grid item
                               style={{

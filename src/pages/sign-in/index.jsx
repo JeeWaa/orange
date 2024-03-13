@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {
     Box,
     Button,
-    CardMedia,
+    CardMedia, Fade,
     FormControl,
-    Grid, IconButton, InputAdornment,
+    Grid, Grow, IconButton, InputAdornment,
     InputLabel,
-    OutlinedInput,
+    OutlinedInput, Snackbar,
     TextField, Typography
 } from "@mui/material";
 import Visibility from '@mui/icons-material/Visibility';
@@ -16,6 +16,9 @@ import logo from '../../assets/icon/orange-logo.png';
 import {Link} from "react-router-dom";
 import axios from "axios";
 
+function GrowTransition(props) {
+    return <Grow {...props} />;
+}
 function SignIn() {
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -32,7 +35,29 @@ function SignIn() {
         console.log(getPassword);
     });
 
+    const [getSuccessState, setSuccessState] = React.useState({
+        open: false,
+        Transition: Fade,
+    });
+    const [getErrorState, setErrorState] = React.useState({
+        open: false,
+        Transition: Fade,
+    });
+    const handleClose = () => {
+        setSuccessState({
+            ...getSuccessState,
+            open: false,
+        });
+        setErrorState({
+            ...getErrorState,
+            open: false,
+        });
+    };
+
     const signInAction = () => {
+
+        const Transition = GrowTransition;
+
         axios.post('https://test.acpt.lk/api/login',
             {
                 email: getEmail,
@@ -43,9 +68,19 @@ function SignIn() {
                 }
             })
             .then(res => {
+                setSuccessState({
+                    open: true,
+                    Transition,
+                });
                 console.log(res);
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                setErrorState({
+                    open: true,
+                    Transition,
+                });
+                console.log(err)
+            });
     }
 
     return (
@@ -153,8 +188,8 @@ function SignIn() {
                                   paddingRight: "40px"
                         }}>
                             <Button variant="contained" size="large" fullWidth
-                                    // component={Link}
-                                    // to="/dashboard"
+                                // component={Link}
+                                // to="/dashboard"
                                     style={{
                                         borderRadius: "10px",
                                         backgroundColor: "#ff8f04",
@@ -163,6 +198,22 @@ function SignIn() {
                                     }}
                                     onClick={signInAction}
                             >SignIn</Button>
+                            <Snackbar
+                                open={getSuccessState.open}
+                                onClose={handleClose}
+                                TransitionComponent={getSuccessState.Transition}
+                                message="You are successfully Signed In"
+                                key={getSuccessState.Transition.name}
+                                autoHideDuration={1200}
+                            />
+                            <Snackbar
+                                open={getErrorState.open}
+                                onClose={handleClose}
+                                TransitionComponent={getErrorState.Transition}
+                                message="Wrong email or password."
+                                key={getErrorState.Transition.name}
+                                autoHideDuration={1200}
+                            />
                         </Grid>
                         <Grid item
                               style={{
