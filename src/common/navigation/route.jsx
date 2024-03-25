@@ -3,7 +3,6 @@ import Customer from "../../pages/customer/index.jsx";
 import Item from "../../pages/item/index.jsx";
 import Order from "../../pages/order/index.jsx";
 import DashboardIcon from "@mui/icons-material/Dashboard.js";
-import * as React from "react";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt.js";
 import ViewAgendaIcon from "@mui/icons-material/ViewAgenda.js";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag.js";
